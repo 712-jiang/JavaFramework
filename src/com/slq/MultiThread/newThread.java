@@ -1,12 +1,14 @@
 package com.slq.MultiThread;
 
+import java.util.concurrent.*;
+
 /**
  * @author qingqing
  * @function:
  * @create 2021-03-22-16:46
  */
 public class newThread {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        //new一个Runnable类型的实例--创建一个可运行的对象
 //        AnotherRunable r = new AnotherRunable();
 //        //将Runnable实例传入Thread，tr就是一个线程
@@ -30,6 +32,24 @@ public class newThread {
                 System.out.println("匿名内部类创建线程");
             }
         });
+
+        //采用Callable创建线程
+        Thread tc = new Thread(new FutureTask<String>(new MyCall()));
+        tc.start();
+
+        //采用线程池创建线程对象
+        ExecutorService service = Executors.newCachedThreadPool();
+        service.execute(()->{
+            System.out.println("线程池创建线程对象");
+        });
+
+        //采用ThreadPool创建Callable类线程
+        Future<String> f = service.submit(new MyCall());  //f是异步执行，线程只要拿到返回值，就不阻塞等待了
+        String s = f.get();  //获得返回值，阻塞类型
+
+        service.shutdown();
+
+
         tn.start();
         //启动线程
         t.start();
@@ -50,6 +70,14 @@ class MyRunnable extends Thread{
             System.out.println("Thread end");
         }
 
+    }
+}
+
+class MyCall implements Callable<String>{
+    @Override
+    public String call() throws Exception {
+        System.out.println("this is a Callable class");
+        return "success";
     }
 }
 

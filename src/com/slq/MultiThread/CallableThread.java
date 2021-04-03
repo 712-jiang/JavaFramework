@@ -28,8 +28,8 @@ public class CallableThread {
         Thread t = new Thread(task);
         t.start();
         //如果call中的方法没有执行完，将阻塞main方法的执行
-        //task.get();
-        System.out.println("result is " + task.get());
+        Object res = task.get();
+        System.out.println("result is " + res);
         System.out.println("main end");
     }
 }
