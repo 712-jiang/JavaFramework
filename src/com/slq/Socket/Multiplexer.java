@@ -77,11 +77,11 @@ public class Multiplexer {
                     }
                 }
             }
-
         }
     }
 
     private void writeHandler(SelectionKey key) {
+
     }
 
     private void readHandler(SelectionKey key) {
@@ -93,8 +93,8 @@ public class Multiplexer {
         try {
             SocketChannel client = ssc.accept();  //调用系统方法：accept接口客户端 fd4
             client.configureBlocking(false);  //定义客户端连接非阻塞
-
             ByteBuffer buffer = ByteBuffer.allocate(8192);//创建读写缓存
+            client.write(buffer);
 
             //select,poll：在jvm中开辟一个数组 fd7 放进去
             //epoll：调用系统函数epoll_ctl(fd3,ADD,fd7,EPOLLIN...将fd7导入内核开辟的空间

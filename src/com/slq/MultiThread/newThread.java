@@ -38,7 +38,7 @@ public class newThread {
         tc.start();
 
         //采用线程池创建线程对象
-        ExecutorService service = Executors.newCachedThreadPool();
+        ExecutorService service = Executors.newCachedThreadPool();  //构造一个线程池
         service.execute(()->{
             System.out.println("线程池创建线程对象");
         });

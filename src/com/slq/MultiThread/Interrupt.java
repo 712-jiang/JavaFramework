@@ -24,6 +24,7 @@ public class Interrupt {
                 }
             }
         });
+
 //        t1.start();
 //        Thread.sleep(1000);
 //        t1.interrupt();  //程序并不会暂停
